@@ -1,0 +1,24 @@
+{
+  "name": "aigrow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "instagram-node": "^0.5.8",
+    "node-instagram": "^4.3.0",
+    "node-telegram-bot-api": "^0.30.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "serve": "nodemon ./server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.eposense.com/mahyarfrd/AIgrow.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
