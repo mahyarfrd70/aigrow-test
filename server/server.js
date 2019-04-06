@@ -16,15 +16,20 @@ var bot = new TelegramBot(token , {polling: true});
 
 bot.on('message', function(msg){
     var url = msg.text;
-    axios.get(`https://api.instagram.com/oembed?url=${url}`).then((data, body)=>{
-      const chatId = msg.chat.id;
-      var userName = data.data.author_name;
-      var userid = data.data.author_url;
-      bot.sendMessage(chatId , userName);
-      bot.sendMessage(chatId , userid);
-    }).catch((err)=>{
-      throw new Error(err)
-    })
+    const chatId = msg.chat.id;
+    var validURL=RegExp(/(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am)\/([A-Za-z0-9-_\.]+)/im)
+    if(validURL.test(url)){
+      axios.get(`https://api.instagram.com/oembed?url=${url}`).then((data, body)=>{
+        var userName = data.data.author_name;
+        var userid = data.data.author_url;
+        bot.sendMessage(chatId , userName);
+        bot.sendMessage(chatId , userid);
+      }).catch((err , res)=>{
+          bot.sendMessage(chatId , "user not found or your url incorrect")
+      })
+    }else{
+      bot.sendMessage(chatId , "your url is invalid");
+    }
 });
 
 server.listen(port , ()=>{
